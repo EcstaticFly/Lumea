@@ -23,7 +23,8 @@ const Orb: React.FC<OrbProps> = ({
   const orbRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!orbRef.current) return;
+    const container = orbRef.current;
+    if (!container) return;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -43,11 +44,11 @@ const Orb: React.FC<OrbProps> = ({
     renderer.setClearColor(parseInt(backgroundColor, 16));
     renderer.setPixelRatio(window.devicePixelRatio);
 
-    orbRef.current.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
     let isDragging = false;
     let previousMousePosition = { x: 0, y: 0 };
-    let rotationVelocity = { x: 0, y: 0 };
+    const rotationVelocity = { x: 0, y: 0 };
     const damping = 0.95;
     const minDistance = 1;
     const maxDistance = 11;
@@ -227,7 +228,7 @@ const Orb: React.FC<OrbProps> = ({
           }
         },
         undefined,
-        (error: any) => {
+        (error: unknown) => {
           console.error("Error loading texture:", error);
           loadedCount++;
           if (loadedCount === totalItems && !animationStarted) {
@@ -285,13 +286,10 @@ const Orb: React.FC<OrbProps> = ({
       renderer.domElement.removeEventListener("touchmove", handleTouchMove);
       renderer.domElement.removeEventListener("touchend", handleTouchEnd);
       window.removeEventListener("resize", handleResize);
-      if (
-        orbRef.current &&
-        renderer.domElement &&
-        orbRef.current.contains(renderer.domElement)
-      ) {
-        orbRef.current.removeChild(renderer.domElement);
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
       }
+
       renderer.dispose();
     };
   }, [
