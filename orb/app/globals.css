@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav,
+footer {
+  position: fixed;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3em;
+  z-index: 2;
+}
+
+nav {
+  top: 0;
+}
+
+footer {
+  bottom: 0;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-family: "Gojo", sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+}
+
+p {
+  text-transform: uppercase;
+  font-family: "Akkurat Mono", monospace;
+  font-size: 11px;
+  color: #777;
+}
